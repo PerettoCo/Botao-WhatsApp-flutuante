@@ -5,220 +5,173 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <style>
-    .botao{
+    .botao {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        z-index: 999;
+    }
 
-position: fixed;
-bottom: 20px; /* Ajuste essa distância conforme necessário */
-left: 20px; /* Ajuste essa distância conforme necessário */
-z-index: 999; /* Ajuste conforme necessário para garantir que o botão apareça acima de outros elementos */
+    .formulario {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        border: 1px solid #cccccc;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        max-width: 400px;
+        width: 100%;
+        font-family: Arial, sans-serif;
+    }
 
+    .formulario h2 {
+        margin-top: 0;
+        font-size: 24px;
+        color: #333;
+    }
 
-}
+    .formulario label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #555;
+    }
 
-/* Estilo do formulário */
-.formulario {
-    display: none; /* Ocultar o formulário por padrão */
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #ffffff;
-    padding: 20px;
-    border: 1px solid #cccccc;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    max-width: 400px;
-    width: 100%;
-}
+    .formulario input[type="text"],
+    .formulario input[type="email"],
+    .formulario input[type="telefone"],
+    .formulario input[type="submit"] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
 
-.formulario h2 {
-    margin-top: 0;
-}
+    .formulario input[type="submit"] {
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
 
-.formulario label {
-    display: block;
-    margin-bottom: 10px;
-}
+    .formulario input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
 
-.formulario input[type="text"],
-.formulario input[type="email"],
-.formulario input[type="telefone"],
-.formulario input[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-.formulario input[type="submit"] {
-    background-color: #007bff;
-    color: #ffffff;
-    border: none;
-    cursor: pointer;
-}
-
-.formulario input[type="submit"]:hover {
-    background-color: #0056b3;
-}
-
-#seu-botao-flutuante {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    z-index: 999;
-    
- 
-width: 80px;
-height: 80px;
-
-border-radius: 100px;
-background-color: white;
-    
-}
-
-</style>
-<body>
-            <!-- Formulário -->
-        <div id="seu-formulario" class="formulario">
-            <h2>Preencha o Formulário</h2>
-            <form id="formulario">
-                <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" required >
-                
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required >
-
-        <label for="telefone">Telefone:</label>
-                <input type="telefone" id="telefone" name="telefone" required >
-
-        <br>
-                
-                <input type="submit" value="Enviar" id="enviar-formulario">
-            </form>
-        </div>
-        <button id="seu-botao-flutuante">
-            <img src="http://casadospashop.com.br/wp-content/uploads/2024/05/whatsapp_imagem_removebg.png" alt="WhatsApp">
-        </button>
+    #seu-botao-flutuante {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        z-index: 999;
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+        background-color: white;
         
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-</body>
+    #seu-botao-flutuante img {
+        width: 70%;
+        height: 70%;
+        border-radius: 50%;
+    }
+
+    #seu-botao-flutuante:hover {
+        background-color: #f0f0f0;
+    }
+</style>
+</head>
+<body>
+<div id="seu-formulario" class="formulario">
+    <h2>Preencha o Formulário</h2>
+    <form id="formulario">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="telefone">Telefone:</label>
+        <input type="telefone" id="telefone" name="telefone" required>
+        <br>
+        <input type="submit" value="Enviar" id="enviar-formulario">
+    </form>
+</div>
+<button id="seu-botao-flutuante">
+    <img src="https://casadospashop.com.br/wp-content/uploads/2024/05/whatsapp_imagem_removebg.png" alt="WhatsApp">
+</button>
 <script>
-    // Selecionar o botão flutuante
-var botaoFlutuante = document.getElementById("seu-botao-flutuante");
+    var botaoFlutuante = document.getElementById("seu-botao-flutuante");
+    var formulario = document.getElementById("seu-formulario");
+    var formularioAberto = false;
 
-// Selecionar o formulário
-var formulario = document.getElementById("seu-formulario");
-
-// Variável para controlar o estado do formulário (aberto ou fechado)
-var formularioAberto = false;
-
-// Adicionar evento de clique ao botão flutuante
-botaoFlutuante.addEventListener("click", function(event) {
-    // Impedir a propagação do evento para que o clique não seja capturado pelo evento de clique fora do formulário
-    event.stopPropagation();
-    
-    // Verificar se o formulário está aberto
-    if (formularioAberto) {
-        // Se estiver aberto, ocultar o formulário
-        formulario.style.display = "none";
-        // Atualizar o estado do formulário para fechado
-        formularioAberto = false;
-    } else {
-        // Se estiver fechado, exibir o formulário
-        formulario.style.display = "flex";
-        // Atualizar o estado do formulário para aberto
-        formularioAberto = true;
-    }
-});
-
-// Adicionar evento de clique fora do formulário para fechá-lo
-document.addEventListener("click", function(event) {
-    // Verificar se o formulário está aberto e se o clique foi fora do formulário
-    if (formularioAberto && !formulario.contains(event.target) && event.target !== botaoFlutuante) {
-        // Ocultar o formulário
-        formulario.style.display = "none";
-        // Atualizar o estado do formulário para fechado
-        formularioAberto = false;
-    }
-});
-
-// Função para obter os parâmetros UTM da URL
-function getUTMParameters() {
-    var urlParams = new URLSearchParams(window.location.search);
-    var utmParameters = {};
-    utmParameters.utm_source = urlParams.get('utm_source');
-    utmParameters.utm_medium = urlParams.get('utm_medium');
-    utmParameters.utm_campaign = urlParams.get('utm_campaign');
-    utmParameters.utm_term = urlParams.get('utm_term');
-    utmParameters.utm_content = urlParams.get('utm_content');
-    return utmParameters;
-}
-
-// Função para aplicar a máscara no campo de telefone
-function mascaraTelefone(event) {
-    var telefone = event.target;
-    var telefoneAtualizado = telefone.value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
-
-    // Adiciona a máscara XX-XXXXX-XXXX
-    if (telefoneAtualizado.length > 2) {
-        telefoneAtualizado = telefoneAtualizado.substring(0, 2) + '-' + telefoneAtualizado.substring(2);
-    }
-    if (telefoneAtualizado.length > 8) {
-        telefoneAtualizado = telefoneAtualizado.substring(0, 8) + '-' + telefoneAtualizado.substring(8, 12);
-    }
-
-    telefone.value = telefoneAtualizado;
-}
-
-// Adicionar evento de input ao campo de telefone para aplicar a máscara
-document.getElementById("telefone").addEventListener("input", mascaraTelefone);
-
-// Adicionar evento de submissão ao formulário
-document.getElementById("formulario").addEventListener("submit", function(event) {
-    // Prevenir o comportamento padrão de submissão do formulário
-    event.preventDefault();
-    
-    // Obter os valores dos campos nome, email e telefone
-    var nome = document.getElementById("nome").value;
-    var email = document.getElementById("email").value;
-    var telefone = document.getElementById("telefone").value;
-    
-    // Construir os dados do formulário
-    var data = new URLSearchParams();
-    data.append('nome', nome);
-    data.append('email', email);
-    data.append('telefone', telefone);
-    
-    // Obter parâmetros UTM da URL
-    var utmParameters = getUTMParameters();
-    
-    // Adicionar parâmetros UTM aos dados do formulário
-    for (var key in utmParameters) {
-        if (utmParameters.hasOwnProperty(key)) {
-            data.append(key, utmParameters[key]);
-        }
-    }
-
-    // Enviar os dados para o webhook via requisição HTTP POST
-    fetch('seu endoint aqui', {
-        method: 'POST',
-        body: data
-    })
-    .then(response => {
-        if (response.ok) {
-            // Redirecionar para o WhatsApp após o envio bem-sucedido
-            var whatsappUrl = "numero para encaminhar para o whatsappp" + nome + "%21%20Meu%20email%20%C3%A9%3A%20" + email;
-            window.location.href = whatsappUrl;
-        } else {
-            console.error('Erro ao enviar os dados para o webhook:', response.status);
-            // Você pode adicionar aqui algum tratamento para lidar com erros de envio para o webhook
-        }
-    })
-    .catch(error => {
-        console.error('Erro ao enviar os dados para o webhook:', error);
-        // Você pode adicionar aqui algum tratamento para lidar com erros de conexão ou outros erros
+    botaoFlutuante.addEventListener("click", function(event) {
+        event.stopPropagation();
+        formulario.style.display = formularioAberto ? "none" : "flex";
+        formularioAberto = !formularioAberto;
     });
-});
 
+    document.addEventListener("click", function(event) {
+        if (formularioAberto && !formulario.contains(event.target) && event.target !== botaoFlutuante) {
+            formulario.style.display = "none";
+            formularioAberto = false;
+        }
+    });
+
+    document.getElementById("telefone").addEventListener("input", function(event) {
+        var telefone = event.target;
+        var telefoneAtualizado = telefone.value.replace(/\D/g, '');
+        if (telefoneAtualizado.length > 2) {
+            telefoneAtualizado = telefoneAtualizado.substring(0, 2) + '-' + telefoneAtualado.substring(2);
+        }
+        if (telefoneAtualizado.length > 8) {
+            telefoneAtualizado = telefoneAtualizado.substring(0, 8) + '-' + telefoneAtualizado.substring(8, 12);
+        }
+        telefone.value = telefoneAtualizado;
+    });
+
+    document.getElementById("formulario").addEventListener("submit", function(event) {
+        event.preventDefault();
+        var nome = document.getElementById("nome").value;
+        var email = document.getElementById("email").value;
+        var telefone = document.getElementById("telefone").value;
+        var data = new URLSearchParams();
+        data.append('nome', nome);
+        data.append('email', email);
+        data.append('telefone', telefone);
+
+        var urlParams = new URLSearchParams(window.location.search);
+        ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(function(param) {
+            var value = urlParams.get(param);
+            if (value) data.append(param, value);
+        });
+
+        fetch('Seu endpoint aqui para o zapier', {
+            method: 'POST',
+            body: data
+        }).then(function(response) {
+            if (response.ok) {
+                window.location.href = "https://api.whatsapp.com/send?phone=NUMERO DE TELEFONE AQUI&text=Ol%C3%A1%2C%20" + nome + "%21%20Meu%20email%20%C3%A9%3A%20" + email;
+            } else {
+                console.error('Erro ao enviar os dados para o webhook:', response.status);
+            }
+        }).catch(function(error) {
+            console.error('Erro ao enviar os dados para o webhook:', error);
+        });
+    });
 </script>
+</body>
+
+
 </html>
